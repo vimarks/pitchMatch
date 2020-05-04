@@ -4,7 +4,7 @@ import * as Play from "./play.js";
 let ctx = new AudioContext();
 window.onload = function() {
   let analyser = ctx.createAnalyser();
-  analyser.fftSize = 4096;
+  analyser.fftSize = 2048;
   Media.getUserStream(callback);
 
   function callback(stream) {
@@ -13,8 +13,7 @@ window.onload = function() {
     mic.connect(analyser);
     osc.connect(ctx.destination);
     osc.start(0);
-    let data = new Uint8Array(analyser.frequencyBinCount);
 
-    Play.play(ctx, analyser, osc, data);
+    Play.play(ctx, analyser, osc);
   }
 };

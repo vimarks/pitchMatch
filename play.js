@@ -1,6 +1,7 @@
 import * as ET from "./equalTemperament.js";
 
-export function play(ctx, analyser, osc, data) {
+export function play(ctx, analyser, osc) {
+  let data = new Uint8Array(analyser.frequencyBinCount);
   analyser.getByteFrequencyData(data);
 
   // get fullest bin
@@ -12,7 +13,7 @@ export function play(ctx, analyser, osc, data) {
   }
 
   let frequency = (idx * ctx.sampleRate) / analyser.fftSize;
-  let notes = ET.equalTemperament(41.2034, 3000);
+  let notes = ET.equalTemperament(41.2034, 6000);
 
   function getNote(frequency, notes) {
     if (notes.length > 0) {
@@ -36,5 +37,7 @@ export function play(ctx, analyser, osc, data) {
     osc.frequency.value = broadcast[0];
   }
 
-  requestAnimationFrame(play(ctx, analyser, osc, data));
+  requestAnimationFrame(function() {
+    play(ctx, analyser, osc);
+  });
 }

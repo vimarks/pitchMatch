@@ -13,8 +13,8 @@ export function play(ctx, analyser, osc) {
   }
 
   let frequency = (idx * ctx.sampleRate) / analyser.fftSize;
-  let notes = ET.equalTemperament(41.2034, 6000);
 
+  let notes = ET.equalTemperament(41.2034, 6000);
   function getNote(frequency, notes) {
     if (notes.length > 0) {
       let mid = Math.floor((notes.length - 1) / 2);
